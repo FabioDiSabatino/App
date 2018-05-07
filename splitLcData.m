@@ -6,7 +6,7 @@ data=strsplit(data,'|');
 
 accData=data(1);
 accData=strsplit(accData,';');
-accData=str2double(accData)
+accData=str2double(accData);
 
 
 gyroData=data(2);

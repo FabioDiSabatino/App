@@ -6,6 +6,9 @@ set(s,"BaudRate",baudrate);
 set(s,'InputBufferSize',bufferSize);
 set(s,'Terminator','CR');
 
+%Open serial port using properties setted by initSerial function
+fopen(s);
+
 serialPort=s;
 
 end

@@ -56,7 +56,31 @@ while ~stop
 end
 
 
-%% Close serial connection 
+%% Acquire and compute data
+
+stop = false;
+startTime = datetime('now');
+while ~stop
+    %Read data from buffer till the end of line 
+    out= fgetl(serialPort);
+    
+    %Split Accelerometer and gyroscope data
+    [x,y]=splitLcData(out);   
+    
+    % Get current time
+    t =  datetime('now') - startTime;
+    
+    % Compute data
+    
+    
+    % Check stop condition
+    if(seconds(t)>40)
+        stop=true;
+    end
+end
+
+
+%% Close serial connection
 fclose(serialPort);
 delete(serialPort);
 clear serialPort;
