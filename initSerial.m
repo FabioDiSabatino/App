@@ -5,9 +5,11 @@ s= serial(com);
 set(s,"BaudRate",baudrate);
 set(s,'InputBufferSize',bufferSize);
 set(s,'Terminator','CR');
-
+ s.Status
 %Open serial port using properties setted by initSerial function
-fopen(s);
+if(s.Status=='closed')
+    fopen(s);
+end
 
 serialPort=s;
 
