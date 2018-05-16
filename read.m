@@ -1,18 +1,41 @@
-function [x1,x2,x3,y1,y2,y3] = read(connection)
+function [acc,gyro,rotation] = read(connection)
 
+g=9.80664999999998;
 
 %Read data from buffer till the end of line 
 out= fgetl(connection);
     
-%Split Accelerometer and gyroscope data
-[x,y]=splitLcData(out)
-x1=x(1);
-x2=x(2);
-x3=x(3);
+z1=[0 0 0];
+typecast(z1(1),'double');
+typecast(z2(2),'double');
+typecast(z3(3),'double');
 
-y1=y(1);
-y2=y(2);
-y3=y(3);
+
+z2=[0 0 0];
+typecast(z2(1),'double');
+typecast(z2(2),'double');
+typecast(z3(3),'double');
+
+
+r=[0 0 0];
+typecast(r(1),'double');
+typecast(r(2),'double');
+typecast(r(3),'double');
+
+%Split Accelerometer, gyroscope and estimated position by micro data
+[z1,z2,r]=splitHcData(out);
+
+%Accelerometer data are expressed in G unit in the inertial frame
+z1=z1*g;
+
+acc=z1;
+gyro=z2;
+rotation=r;
+
+
+
+
+
 
 
 end
