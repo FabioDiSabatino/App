@@ -23,7 +23,7 @@ Omega=[0, -wx, -wy, -wz;
 I=eye(4);
 
 %The initial state set as horizontal position
-q0=[1 0 0 0].';
+q0=[1 0 0 0]';
 
 %Initial value for error covariance matrix
 P0= 0.5*eye(4);
@@ -32,7 +32,7 @@ P0= 0.5*eye(4);
 Qk=1e-06*eye(4);
 
 %Calculation of the discrete time state transition matrix
-Ak=I+1/2*Omega*t;
+Ak=I+(0.5*Omega)*t;
 
 
 
@@ -43,13 +43,15 @@ if(p_qk==0)
    %Calculation of the first “a priori” system state estimation
    qk=Ak*q0;
    %Calculation of the first "a priori" noise covariance matrix
-   Pk=(Ak*P0*Ak.')+Qk;
+   Pk=(Ak*P0*Ak')+Qk;
 else
     %Calculation of the “a priori” system state estimation
     qk=Ak*p_qk;
     %Calculation of the "a priori" noise covariance matrix
-    Pk=(Ak*p_Pk*Ak.')+Qk;
+    Pk=(Ak*p_Pk*Ak')+Qk;
 end
+
+qk=qk/norm(qk);
 
 
 

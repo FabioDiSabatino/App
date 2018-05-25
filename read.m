@@ -7,14 +7,14 @@ out= fgetl(connection);
     
 z1=[0 0 0];
 typecast(z1(1),'double');
-typecast(z2(2),'double');
-typecast(z3(3),'double');
+typecast(z1(2),'double');
+typecast(z1(3),'double');
 
 
 z2=[0 0 0];
 typecast(z2(1),'double');
 typecast(z2(2),'double');
-typecast(z3(3),'double');
+typecast(z2(3),'double');
 
 
 r=[0 0 0];
@@ -30,6 +30,11 @@ z1=z1*g;
 
 acc=z1;
 gyro=z2;
+
+gyro(1)=gyro(1)*pi/180;
+gyro(2)=gyro(2)*pi/180;
+gyro(3)=gyro(3)*pi/180;
+
 rotation=r;
 
 
