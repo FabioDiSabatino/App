@@ -4,7 +4,8 @@ function serialConnection = initSerial(com,baudrate,bufferSize)
 s= serial(com);
 set(s,"BaudRate",baudrate);
 set(s,'InputBufferSize',bufferSize);
-set(s,'Terminator','CR');
+set(s,'Terminator','LF');
+s.ReadAsyncMode = 'manual';
 
 
 
