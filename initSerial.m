@@ -5,7 +5,7 @@ s= serial(com);
 set(s,"BaudRate",baudrate);
 set(s,'InputBufferSize',bufferSize);
 set(s,'Terminator','LF');
-s.ReadAsyncMode = 'manual';
+
 
 
 
