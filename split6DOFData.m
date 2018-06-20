@@ -1,4 +1,4 @@
-function [accData,gyroData,rotationData] = splitHcData(data)
+function [accData,gyroData,rotationData] = split6DOFData(data)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
