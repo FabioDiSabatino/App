@@ -1,4 +1,4 @@
-function [acc,gyro,magneto,rotation] = read(data,mode)
+function [acc,gyro,magneto,rotation] = ReadDataTable(data,mode)
 
 g=9.80664999999998;
 
@@ -28,7 +28,9 @@ typecast(r(3),'double');
 if(mode==1)
     %Split Accelerometer, gyroscope and estimated position by micro data
     [z1,z2,z3,r]=split9DOFData(data);
-    
+    z3(1)=z3(1)*10;
+    z3(2)= z3(2)*10;
+    z3(3)= z3(3)*10;
 
 else
      [z1,z2,r]=split6DOFData(data);

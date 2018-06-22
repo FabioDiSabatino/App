@@ -21,7 +21,7 @@ ComputationMode=1;
 
 %% App in Comparing mode
 
-clearvars -except serialPort;
+clearvars -except Data;
 
 f=figure;
 
@@ -37,6 +37,7 @@ rollLine= animatedline(0,0,'Color','b');
 
 
 ax1.YLim = [-180 180];
+ax1.YGrid = 'on';
 xlabel('tempo (s)');
 ylabel('gradi (°)');
 
@@ -63,6 +64,7 @@ yawLine= animatedline(0,0,'Color','b');
 
 
 ax1.YLim = [-180 180];
+ax1.YGrid = 'on';
 xlabel('tempo (s)');
 ylabel('gradi (°)');
 
@@ -89,6 +91,7 @@ pitchLine= animatedline(0,0,'Color','b');
 
 
 ax1.YLim = [-180 180];
+ax1.YGrid = 'on';
 xlabel('tempo (s)');
 ylabel('gradi (°)');
 
@@ -124,28 +127,29 @@ rotation=zeros(6000,3);
 
 count=1;
 clc;
-flushinput(serialPort)
-while ~stop
+%flushinput(serialPort)
+%while ~stop
     
     %-----------------------------Read data sensor------------------------%
-    data(count)=fgetl(serialPort);
-    count=count+1;
+    %data(count)=fgetl(serialPort);
+    %count=count+1;
     
      % Get current time
-     t =  datetime('now') - startTime;
+     %t =  datetime('now') - startTime;
      
     % Check stop condition
-     if(seconds(t)>10)
+     %if(seconds(t)>10)
          stop=true;
-     end
+     %end
      
-end
-count=count-1;
-
+%end
+%count=count-1;
+ [count, ~]=size(Data);
+ count=count-1;
 %-----------------------------Parsing data -------------------------------%
 for c=1:count
     
-    [accData,gyroData,magneto,rotationData]=read(data(c),1);
+    [accData,gyroData,~,rotationData]=read(Data(c),0);
     
     %Acceleration on x-axe
     acc(c,1)=accData(1);
@@ -166,13 +170,13 @@ for c=1:count
     gyro(c,3)=gyroData(3);
     
     %Magnetic field on x-axe
-    magneto(c,1)=gyroData(1);
+    %magneto(c,1)=gyroData(1);
     
     %Magnetic field on y-axe
-    magneto(c,2)=gyroData(2);
+    %magneto(c,2)=gyroData(2);
     
     %Magnetic field on z-axe
-    magneto(c,3)=gyroData(3);
+    %magneto(c,3)=gyroData(3);
     
     %Yaw
     rotation(c,1)=rotationData(1);
@@ -209,19 +213,19 @@ for c=1:count
     
      
     %--------------------Stage 2:correction position----------------------%
-    magnetoRaw=[magneto(c,1),magneto(c,2),magneto(c,3)];
-    [qk2, Pk2]= Stage2(magnetoRaw,qk1,Pk1);
-    [yaw,pitch,roll]=quat2angle(qk2');
+   % magnetoRaw=[magneto(c,1),magneto(c,2),magneto(c,3)];
+    %[qk2, Pk2]= Stage2(magnetoRaw,qk1,Pk1);
+    [yaw,pitch,roll]=quat2angle(qk1');
     
     yaw=yaw*180/pi;
     pitch=pitch*180/pi;
-    roll=-roll*180/pi;
+    roll=roll*180/pi;
     
         
     
     %Feedbacks loop 
-     p_qk=qk2;
-     p_Pk=Pk2;
+     p_qk=qk1;
+     p_Pk=Pk1;
      
      %-------------------------------Display data--------------------------%
     
