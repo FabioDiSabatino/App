@@ -38,7 +38,7 @@ end
 
 
 %Accelerometer data are expressed in G unit in the inertial frame
-z1=z1*g;
+%z1=z1*g;
 
 acc=z1;
 
