@@ -22,7 +22,7 @@ clearvars -except Data ACC;
 f=figure;
 
 p = uipanel('Parent',f,'BorderType','none');
-p.Title = 'Velocità angolari misurate'; 
+p.Title = 'Zero-rate offset, test #1'; 
 p.TitlePosition = 'centertop'; 
 p.FontSize = 12;
 p.FontWeight = 'bold';
@@ -36,9 +36,9 @@ angularX= animatedline(0,0,'Color','b');
 ax1.YLim = [-4 4];
 ax1.YGrid = 'on';
 ax1.XGrid = 'on';
-xlabel('tempo (s)');
+
 ylabel('\omega_x (dps)');
-title('velocità angolare sull''asse X (rad/s)');
+title('asse X (rad/s)');
 
 ax1=subplot(3,1,2,'Parent',p);
 
@@ -48,10 +48,9 @@ angularY= animatedline(0,0,'Color','r');
 ax1.YLim = [-4 4];
 ax1.YGrid = 'on';
 ax1.XGrid = 'on';
-xlabel('tempo (s)');
 ylabel('\omega_y (dps)');
 
-title('velocità angolare sull''asse Y (rad/s)');
+title('asse Y (rad/s)');
 
 
 ax1=subplot(3,1,3,'Parent',p);
@@ -63,9 +62,10 @@ ax1.YLim = [-4 4];
 ax1.YGrid = 'on';
 ax1.XGrid = 'on';
 xlabel('tempo (s)');
+
 ylabel('\omega_z (dps)');
 
-title('velocità angolare sull''asse z (rad/s)');
+title('asse Z (rad/s)');
 
 g=figure;
 
@@ -93,6 +93,22 @@ ax2.YGrid = 'on';
 ax2.YLim = [-180 180];
 xlabel('tempo (s)');
 ylabel('gradi (°)');
+
+h=figure;
+
+p = uipanel('Parent',h,'BorderType','none'); 
+p.Title = 'Zero-g offset Z'; 
+p.TitlePosition = 'centertop'; 
+p.FontSize = 12;
+p.FontWeight = 'bold';
+
+ax1=subplot(1,1,1,'Parent',p);
+modulLine= animatedline(0,0,'Color','g');
+
+ax1.YLim = [0 2];
+ax1.YGrid = 'on';
+xlabel('tempo (s)');
+ylabel('||g_Z||');
 
 
 
@@ -204,8 +220,8 @@ end
 modulAcc= zeros(12000,1);
 for c=1:count
     modulAcc(c)=norm(ACC(c,1:3));
+    addpoints(modulLine,c*T,modulAcc(c));
 end
-   
 
 
 
