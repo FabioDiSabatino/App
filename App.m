@@ -237,7 +237,7 @@ p.TitlePosition = 'centertop';
 p.FontSize = 12;
 p.FontWeight = 'bold';
 
-ax1=subplot(2,1,1,'Parent',p);
+ax1=subplot(3,1,1,'Parent',p);
 title('Matlab');
 rollLine= animatedline(0,0,'Color','b');
 
@@ -247,7 +247,7 @@ ax1.YGrid = 'on';
 xlabel('tempo (s)');
 ylabel('gradi (°)');
 
-ax2=subplot(2,1,2,'Parent',p);
+ax2=subplot(3,1,2,'Parent',p);
 rollSTMLine= animatedline(0,0,'Color','r');
 
 title('STM');
@@ -255,6 +255,16 @@ ax2.YGrid = 'on';
 ax2.YLim = [-180 180];
 xlabel('tempo (s)');
 ylabel('gradi (°)');
+
+ax3=subplot(3,1,3,'Parent',p);
+angularX= animatedline(0,0,'Color','g');
+
+title('Velocità angolare asse X');
+ax3.YGrid = 'on';
+ax3.YLim = [-250 250];
+xlabel('tempo (s)');
+ylabel('\omega_x (dps)');
+
 
 g=figure;
 
@@ -264,7 +274,7 @@ p.TitlePosition = 'centertop';
 p.FontSize = 12;
 p.FontWeight = 'bold';
 
-ax1=subplot(2,1,1,'Parent',p);
+ax1=subplot(3,1,1,'Parent',p);
 title('Matlab');
 yawLine= animatedline(0,0,'Color','b');
 
@@ -274,7 +284,7 @@ ax1.YGrid = 'on';
 xlabel('tempo (s)');
 ylabel('gradi (°)');
 
-ax2=subplot(2,1,2,'Parent',p);
+ax2=subplot(3,1,2,'Parent',p);
 yawSTMLine= animatedline(0,0,'Color','r');
 
 title('STM');
@@ -282,6 +292,15 @@ ax2.YGrid = 'on';
 ax2.YLim = [-180 180];
 xlabel('tempo (s)');
 ylabel('gradi (°)');
+
+ax3=subplot(3,1,3,'Parent',p);
+angularZ= animatedline(0,0,'Color','g');
+
+title('Velocità angolare asse Z');
+ax3.YGrid = 'on';
+ax3.YLim = [-250 250];
+xlabel('tempo (s)');
+ylabel('\omega_z (dps)');
 
 h=figure;
 
@@ -291,7 +310,7 @@ p.TitlePosition = 'centertop';
 p.FontSize = 12;
 p.FontWeight = 'bold';
 
-ax1=subplot(2,1,1,'Parent',p);
+ax1=subplot(3,1,1,'Parent',p);
 title('Matlab');
 pitchLine= animatedline(0,0,'Color','b');
 
@@ -301,7 +320,7 @@ ax1.YGrid = 'on';
 xlabel('tempo (s)');
 ylabel('gradi (°)');
 
-ax2=subplot(2,1,2,'Parent',p);
+ax2=subplot(3,1,2,'Parent',p);
 pitchSTMLine= animatedline(0,0,'Color','r');
 
 title('STM');
@@ -309,6 +328,15 @@ ax2.YGrid = 'on';
 ax2.YLim = [-180 180];
 xlabel('tempo (s)');
 ylabel('gradi (°)');
+
+ax3=subplot(3,1,3,'Parent',p);
+angularY= animatedline(0,0,'Color','g');
+
+title('Velocità angolare asse Y');
+ax3.YGrid = 'on';
+ax3.YLim = [-250 250];
+xlabel('tempo (s)');
+ylabel('\omega_y (dps)');
 
 stop = false;
 
@@ -443,6 +471,10 @@ for c=1:count
     
     addpoints(yawLine,c*T,yaw);
     addpoints(yawSTMLine,c*T,rotation(c,1));
+    
+    addpoints(angularX,c*T,gyro(c,1)*180/pi);
+    addpoints(angularY,c*T,gyro(c,2)*180/pi);
+    addpoints(angularZ,c*T,gyro(c,3)*180/pi);
     
 end
     
